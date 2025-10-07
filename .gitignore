@@ -6,6 +6,6 @@
 target/
 
 # OS
-*.class
-*.log
+.class
+.log
 /.idea/

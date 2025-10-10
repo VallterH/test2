@@ -3,10 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>com.applestore</groupId>
+    <artifactId>applestore-server</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>AppleStore Server</name>
+    <description>Backend API for managing AppleStore products and customers</description>
 
-    <groupId>com.Applestore</groupId>
-    <artifactId>Applestore</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
 
 

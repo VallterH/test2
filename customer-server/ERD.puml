@@ -1,52 +1,71 @@
-
 @startuml
+!theme plain
+
 entity "users" {
-  *id : int <<PK>>
-  name : varchar
-  email : varchar
-  password : varchar
-  created_at : timestamp
+  *id : SERIAL <<PK>>
+  --
+  name : varchar(100)
+  email : varchar(100) <<UQ>>
+  password : varchar(255)
+  created_at : timestamp [default: CURRENT_TIMESTAMP]
+  --
+  INDEX idx_users_email (email)
 }
 
 entity "categories" {
-  *id : int <<PK>>
-  name : varchar
+  *id : SERIAL <<PK>>
+  --
+  name : varchar(100) <<UQ>>
 }
 
 entity "products" {
-  *id : int <<PK>>
-  name : varchar
+  *id : SERIAL <<PK>>
+  --
+  name : varchar(150)
   description : text
-  price : decimal
+  price : decimal(10,2)
   stock : int
-  image_url : varchar
+  image_url : varchar(255)
   category_id : int <<FK>>
+  --
+  INDEX idx_products_category_id (category_id)
+  INDEX idx_products_name (name)
 }
 
 entity "cart_items" {
-  *id : int <<PK>>
+  *id : SERIAL <<PK>>
+  --
   user_id : int <<FK>>
   product_id : int <<FK>>
-  quantity : int
+  quantity : int [check > 0]
+  --
+  INDEX idx_cart_user_product (user_id, product_id)
 }
 
 entity "orders" {
-  *id : int <<PK>>
+  *id : SERIAL <<PK>>
+  --
   user_id : int <<FK>>
-  total_price : decimal
-  created_at : timestamp
-  status : varchar
+  total_price : decimal(10,2)
+  created_at : timestamp [default: CURRENT_TIMESTAMP]
+  status : varchar(50) [default: 'pending']
+  --
+  INDEX idx_orders_user_id (user_id)
 }
 
 entity "order_items" {
-  *id : int <<PK>>
+  *id : SERIAL <<PK>>
+  --
   order_id : int <<FK>>
   product_id : int <<FK>>
-  quantity : int
-  price : decimal
+  quantity : int [check > 0]
+  price : decimal(10,2)
+  --
+  INDEX idx_order_items_order_id (order_id)
 }
 
-users ||--o{    cart_items
+' --- Связи между таблицами ---
+users ||--o{ cart_items
 users ||--o{ orders
 categories ||--o{ products
 products ||--o{ cart_items

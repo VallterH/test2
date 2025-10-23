@@ -64,7 +64,7 @@ entity "order_items" {
   INDEX idx_order_items_order_id (order_id)
 }
 
-' --- Связи между таблицами ---
+
 users ||--o{ cart_items
 users ||--o{ orders
 categories ||--o{ products

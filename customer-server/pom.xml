@@ -7,7 +7,7 @@
     <groupId>com.applestore</groupId>
     <artifactId>customer-server</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -16,14 +16,14 @@
     </properties>
 
     <dependencies>
-
+        <!-- PostgreSQL JDBC driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.7.3</version>
         </dependency>
 
-
+        <!-- Servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -31,7 +31,7 @@
             <scope>provided</scope>
         </dependency>
 
-
+        <!-- Gson для сериализации -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -43,7 +43,7 @@
         <finalName>customer-server</finalName>
 
         <plugins>
-
+            <!-- Компиляция Java -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -54,11 +54,16 @@
                 </configuration>
             </plugin>
 
-
+            <!-- Tomcat plugin для деплоя -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
+                <configuration>
+                    <path>/customer-server</path>
+                    <port>8080</port>
+                    <uriEncoding>UTF-8</uriEncoding>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -2,13 +2,18 @@ package com.applestore;
 
 import com.applestore.dao.productdao;
 import com.applestore.model.Product;
+import com.google.gson.Gson;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         productdao dao = new productdao();
-        for (Product p : dao.getAllProducts()) {
-            System.out.println(p);
-        }
+        List<Product> products = dao.getAllProducts();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(products);
+
+        System.out.println("Список товаров в JSON:");
+        System.out.println(json);
     }
 }
-

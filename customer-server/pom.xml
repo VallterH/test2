@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.applestore</groupId>
@@ -16,14 +15,14 @@
     </properties>
 
     <dependencies>
-        <!-- PostgreSQL JDBC driver -->
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.7.3</version>
         </dependency>
 
-        <!-- Servlet API -->
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -31,7 +30,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Gson для сериализации -->
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -41,9 +40,8 @@
 
     <build>
         <finalName>customer-server</finalName>
-
         <plugins>
-            <!-- Компиляция Java -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -54,7 +52,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Tomcat plugin для деплоя -->
+
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
@@ -62,7 +60,6 @@
                 <configuration>
                     <path>/customer-server</path>
                     <port>8080</port>
-                    <uriEncoding>UTF-8</uriEncoding>
                 </configuration>
             </plugin>
         </plugins>

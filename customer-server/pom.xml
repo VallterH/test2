@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>com.applestore</groupId>
@@ -13,53 +12,44 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>customer-server</artifactId>
     <packaging>war</packaging>
-
     <name>Apple Store Backend</name>
 
     <properties>
+        <!-- Рекомендую обновить Java до 11, но 1.8 тоже будет работать -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <!-- PostgreSQL -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.7.3</version>
         </dependency>
 
-        <!-- Gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.10.1</version>
-        </dependency>
-
-        <!-- Servlet API -->
+        <!--
+          Пакет 'javax.servlet' устарел.
+          Лучше использовать 'jakarta.servlet' для Tomcat 10+
+          Но для Tomcat 7 'javax' - это правильно. Оставляем.
+        -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>customer-server</finalName>
         <plugins>
-            <!-- Компилятор -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -68,15 +58,24 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8080</port>
+                    <!--
+                       ВОТ ЭТО ВАЖНО!
+                       Это "контекстный путь" вашего сервера.
+                       Теперь все ваши сервлеты будут доступны по адресу:
+                       http://localhost:8080/api/...
+                       Например, http://localhost:8080/api/products
+                    -->
+                    <path>/api</path>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-    <!-- Добавляем репозиторий, где лежит tomcat7 -->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/content/groups/public/</url>
-        </pluginRepository>
-    </pluginRepositories>
 
 </project>

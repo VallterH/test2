@@ -65,13 +65,6 @@
                 <version>2.2</version>
                 <configuration>
                     <port>8080</port>
-                    <!--
-                       ВОТ ЭТО ВАЖНО!
-                       Это "контекстный путь" вашего сервера.
-                       Теперь все ваши сервлеты будут доступны по адресу:
-                       http://localhost:8080/api/...
-                       Например, http://localhost:8080/api/products
-                    -->
                     <path>/api</path>
                 </configuration>
             </plugin>

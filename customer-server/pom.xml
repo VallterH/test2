@@ -12,27 +12,27 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>customer-server</artifactId>
     <packaging>war</packaging>
-    <name>Apple Store Backend</name>
+    <name>Apple Store </name>
 
     <properties>
-        <!-- Рекомендую обновить Java до 11, но 1.8 тоже будет работать -->
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+
+        <junit.version>5.8.2</junit.version>
+        <mockito.version>4.8.0</mockito.version>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.7.3</version>
         </dependency>
 
-        <!--
-          Пакет 'javax.servlet' устарел.
-          Лучше использовать 'jakarta.servlet' для Tomcat 10+
-          Но для Tomcat 7 'javax' - это правильно. Оставляем.
-        -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -45,6 +45,35 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -53,11 +82,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.3.2</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
 
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
@@ -65,9 +95,17 @@
                 <version>2.2</version>
                 <configuration>
                     <port>8080</port>
-                    <path>/api</path>
+                    <path>/customer-server</path>
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+
         </plugins>
     </build>
 
